@@ -6,9 +6,11 @@
  */
 
 plugins {
-    // Apply the application plugin to add support for building a CLI application in Java.
+    java
     application
+    jacoco
 }
+
 
 repositories {
     // Use Maven Central for resolving dependencies.
@@ -18,6 +20,7 @@ repositories {
 dependencies {
     // Use JUnit Jupiter for testing.
     testImplementation(libs.junit.jupiter)
+    testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
 
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
@@ -32,6 +35,10 @@ java {
     }
 }
 
+jacoco {
+    toolVersion = "0.8.11" // latest stable
+}
+
 application {
     // Define the main class for the application.
     mainClass = "org.example.App"
@@ -40,4 +47,18 @@ application {
 tasks.named<Test>("test") {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
+    testLogging {
+        events("passed", "skipped", "failed")
+        exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
+    }
+    finalizedBy(tasks.jacocoTestReport) // generate report after tests
+}
+
+tasks.jacocoTestReport {
+    dependsOn(tasks.test) // tests must run before report
+    reports {
+        xml.required.set(true)
+        csv.required.set(false)
+        html.required.set(true)
+    }
 }
