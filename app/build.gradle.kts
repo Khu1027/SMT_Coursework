@@ -33,26 +33,16 @@ java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(21)
     }
-    // Tell Gradle where the source code is
-    sourceSets {
-        val main by getting {
-            java.srcDirs("src/onlineshopping")
-        }
-        val test by getting {
-            java.srcDirs("src/test/java") // tests can stay standard
-            resources.srcDirs("src/test/resources")
-        }
-    }    
 }
 
 jacoco {
     toolVersion = "0.8.11" // latest stable
 }
 
-application {
-    // Define the main class for the application.
-    mainClass = "org.example.App"
-}
+// application {
+//     // Define the main class for the application.
+//     mainClass = "org.example.App"
+// }
 
 tasks.named<Test>("test") {
     // Use JUnit Platform for unit tests.
