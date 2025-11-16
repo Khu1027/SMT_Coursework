@@ -3,9 +3,6 @@ package onlineshopping;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
-
 /*
  * Unit tests for the CustomerType enum.
  * Test different customer types
