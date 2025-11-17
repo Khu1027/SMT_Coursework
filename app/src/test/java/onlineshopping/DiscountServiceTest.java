@@ -29,5 +29,49 @@ import org.junit.jupiter.api.Disabled;
  *  
  */
 public class DiscountServiceTest {
+
+    /*
+     * Test bundle discount
+     * 1. one mouse laptop pair
+     * 2. two mouse laptop pairs
+     * 3. one laptop, two mice
+     */
+
+     /*
+      * Test fixed amount coupons
+      * 1. DISCOUNT10 coupon is correctly applied
+      * 2. SAVE50 coupon is correctly applied
+      * 3. No coupon applied
+      * 5. invalid coupon code = error
+      */
+
+    /*
+     * Test Tiered Discounts
+     * 1. Cart value 1500 = no discount
+     * 2. Cart value 2000 = no discount
+     * 3. Cart value 2001 = 15% discount
+     * 4. Cart value 2500 = 15% discount
+     * 5. Cart value 7000 = 15% discount
+     * 6. Cart value 7001 = 20% discount
+     * 7. Cart value 10000 = 20% discount
+     * 8. Cart value 15000 = 20% discount
+     * 9. Cart value 15001 = 25% discount
+     * 10. Cart value 20000 = 25% discount
+     */
+
+     /*
+      * Test Customer-type Discounts
+      * 1. REGULAR customer = no discount
+      * 2. PREMIUM customer = 10% discount
+      * 3. VIP customer = 15% discount
+      */
+
+      /*
+       * Time-limited Coupons
+       * System is not in promotional period
+       * - discount not applied
+       * System is in promotional period
+       * - discount applied (25% off)
+       */
     
 }
