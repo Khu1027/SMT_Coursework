@@ -42,7 +42,8 @@ public class CartItemTest {
         assertEquals(1000.0, singleItem.getTotalPrice());
     }
 
-    @Disabled
+    // This test fails because CartItem does not throw an exception for zero quantity.
+    @Disabled("Failing test: CartItem allows zero quantity without exception.")
     @Test
     public void testCartItemNoItemException() {
         CartItem noItem = new CartItem(product, 0);
