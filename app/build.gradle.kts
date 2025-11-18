@@ -11,55 +11,49 @@ plugins {
     jacoco
 }
 
-
 repositories {
-    // Use Maven Central for resolving dependencies.
     mavenCentral()
 }
 
 dependencies {
-    // Use JUnit Jupiter for testing.
-    testImplementation(libs.junit.jupiter)
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
-
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-
-    // This dependency is used by the application.
-    implementation(libs.guava)
+    implementation("com.google.guava:guava:32.1.2-jre")
 }
 
-// Apply a specific Java toolchain to ease working on different environments.
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion.set(JavaLanguageVersion.of(21))
     }
 }
 
 jacoco {
-    toolVersion = "0.8.11" // latest stable
+    toolVersion = "0.8.11"
 }
 
-// application {
-//     // Define the main class for the application.
-//     mainClass = "org.example.App"
-// }
-
-tasks.named<Test>("test") {
-    // Use JUnit Platform for unit tests.
+// Configure the test task
+tasks.test {
     useJUnitPlatform()
     testLogging {
         events("passed", "skipped", "failed")
         exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
     }
-    finalizedBy(tasks.jacocoTestReport) // generate report after tests
+    // Make sure Jacoco report runs after tests
+    finalizedBy(tasks.jacocoTestReport)
 }
 
+// Configure Jacoco report
 tasks.jacocoTestReport {
-    dependsOn(tasks.test) // tests must run first
+    dependsOn(tasks.test) // run tests first
     reports {
-        html.required.set(true) // generate HTML report
+        html.required.set(true)
         xml.required.set(false)
         csv.required.set(false)
     }
+}
+
+// Optional: make the "check" task depend on Jacoco report
+tasks.named("check") {
+    dependsOn(tasks.jacocoTestReport)
 }
 
