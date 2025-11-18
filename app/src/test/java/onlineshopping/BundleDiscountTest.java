@@ -35,8 +35,9 @@ public class BundleDiscountTest {
         customerType = CustomerType.REGULAR;
     }
 
+    // ===== All Failed Tests Below: 10% Bundle discount is applied to the laptop instead of the mouse =====
+
     // Test one mouse-laptop pair bundle discount
-    // This test fails because the 10% bundle discount is applied to the laptop instead of the mouse.
     @Disabled("Failing test: Bundle discount applied to wrong item.")
     @Test
     public void testBundleDiscount_OneMouseLaptopPair() {
@@ -44,8 +45,8 @@ public class BundleDiscountTest {
         mouseItem = new CartItem(mouse, 1);
         cartItems.add(laptopItem);
         cartItems.add(mouseItem);
-        //double discount = discountService.applyDiscount(550.0, customerType, cartItems, null);
-        assertEquals(545.0, discountService.applyDiscount(550.0, customerType, cartItems, null)); // 10% off mouse = $5.0 discount
+        double discount = discountService.applyDiscount(550.0, customerType, cartItems, null);
+        assertEquals(545.0, discount); // 10% off mouse = $5.0 discount
     }
 
     // Test two mouse-laptop pairs bundle discount
@@ -56,8 +57,8 @@ public class BundleDiscountTest {
         mouseItem = new CartItem(mouse, 2);
         cartItems.add(laptopItem);
         cartItems.add(mouseItem);
-        //double discount = discountService.applyDiscount(1100.0, customerType, cartItems, null);
-        assertEquals(1090.0, discountService.applyDiscount(1100.0, customerType, cartItems, null)); // 10% off both mice = $10.0 discount
+        double discount = discountService.applyDiscount(1100.0, customerType, cartItems, null);
+        assertEquals(1090.0, discount); // 10% off both mice = $10.0 discount
     }
 
     // Test one laptop, two mice bundle discount
@@ -68,8 +69,8 @@ public class BundleDiscountTest {
         mouseItem = new CartItem(mouse, 2);
         cartItems.add(laptopItem);
         cartItems.add(mouseItem);
-        //double discount = discountService.applyDiscount(600.0, customerType, cartItems, null);
-        assertEquals(595.0, discountService.applyDiscount(600.0, customerType, cartItems, null)); // 10% off one mouse = $5.0 discount
+        double discount = discountService.applyDiscount(600.0, customerType, cartItems, null);
+        assertEquals(595.0, discount); // 10% off one mouse = $5.0 discount
     }
 
     // Test two laptops, one mouse bundle discount
@@ -80,8 +81,8 @@ public class BundleDiscountTest {
         mouseItem = new CartItem(mouse, 1);
         cartItems.add(laptopItem);
         cartItems.add(mouseItem);
-        //double discount = discountService.applyDiscount(1050.0, customerType, cartItems, null);
-        assertEquals(1045.0, discountService.applyDiscount(1050.0, customerType, cartItems, null)); // 10% off one mouse = $5.0 discount
+        double discount = discountService.applyDiscount(1050.0, customerType, cartItems, null);
+        assertEquals(1045.0, discount); // 10% off one mouse = $5.0 discount
     }
 
 }

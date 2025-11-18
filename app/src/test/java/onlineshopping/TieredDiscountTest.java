@@ -47,6 +47,7 @@ public class TieredDiscountTest {
         assertEquals(500.0, discountService.applyDiscount(500.0, customerType, cartItems, null));
     }
 
+    // Failed Test: Tiered discounts should start at 2000, not 1000
     @Disabled("Failing test: Tiered discount starts discounts at 1000 rather than 2000.")
     @Test // Cart value 1500 = no discount
     public void testTieredDiscount_CartValue1500() {
@@ -55,6 +56,7 @@ public class TieredDiscountTest {
         assertEquals(1500.0, discountService.applyDiscount(1500.0, customerType, cartItems, null));
     }
 
+    // Failed Test: Tiered discounts should start at 2000, not 1000
     @Disabled("Failing test: Tiered discount starts discounts at 1000 rather than 2000.")
     @Test // Cart value 2000 = no discount
     public void testTieredDiscount_CartValue2000() {

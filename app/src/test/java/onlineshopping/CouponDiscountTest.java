@@ -45,13 +45,12 @@ public class CouponDiscountTest {
         assertEquals(500.0, discountService.applyDiscount(500.0, customerType, cartItems, ""));
     }
 
-    // Invalid Coupon should give no discount
     @Test
     public void testCouponDiscount_InvalidCoupon() {
         assertEquals(500.0, discountService.applyDiscount(500.0, customerType, cartItems, "INVALID"));
     }
 
-    // Invalid Coupons should raise an error
+    // Failed Test: Invalid Coupons should raise an error
     @Disabled("Failing test: DiscountService allows invalid coupon codes without exception.")
     @Test
     public void testCouponDiscount_InvalidError() {
@@ -65,7 +64,7 @@ public class CouponDiscountTest {
         }
     }
 
-    // Coupons should be case-sensitive
+    // Failed Test:Coupons should be case-sensitive
     @Disabled("Failing test: DiscountService does not treat coupon codes as case-insensitive.")
     @Test
     public void testCouponDiscount_CaseSensitiveDiscount10() {
@@ -79,7 +78,7 @@ public class CouponDiscountTest {
         }    
     }
 
-    // Coupons should be case-sensitive
+    // Failed Test: Coupons should be case-sensitive
     @Disabled("Failing test: DiscountService does not treat coupon codes as case-insensitive.")
     @Test
     public void testCouponDiscount_CaseSensitiveSAVE50() {
