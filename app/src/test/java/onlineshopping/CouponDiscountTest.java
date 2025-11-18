@@ -40,6 +40,11 @@ public class CouponDiscountTest {
         assertEquals(500.0, discountService.applyDiscount(500.0, customerType, cartItems, null));
     }
 
+    @Test
+    public void testCouponDiscount_EmptyCoupon() {
+        assertEquals(500.0, discountService.applyDiscount(500.0, customerType, cartItems, ""));
+    }
+
     // Invalid Coupon should give no discount
     @Test
     public void testCouponDiscount_InvalidCoupon() {
