@@ -6,34 +6,78 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 
+import java.util.ArrayList;
+
 /*
+    * Unit tests for bundle discounts in the DiscountService class.
+    *
     * Test bundle discount
-    * 1. one mouse laptop pair
-    * 2. two mouse laptop pairs
+    * 1. one mouse-laptop pair
+    * 2. two mouse-laptop pairs
     * 3. one laptop, two mice
+    * 4. two laptops, one mouse
 */
 public class BundleDiscountTest {
     private DiscountService discountService;
-    private List<CartItem> cartItems;
+    private ArrayList<CartItem> cartItems;
     private CustomerType customerType;
-    private CartItem laptop;
-    private CartItem mouse;
+    private Product laptop;
+    private Product mouse;
+    private CartItem laptopItem;
+    private CartItem mouseItem;
 
     @BeforeEach
     public void setUp() {
         discountService = new DiscountService();
+        laptop = new Product("Laptop", 500.0, 10);
+        mouse = new Product("Mouse", 50.0, 50);
         cartItems = new ArrayList<>();
         customerType = CustomerType.REGULAR;
     }
 
+    // Test one mouse-laptop pair bundle discount
+    // This test fails because the 10% bundle discount is applied to the laptop instead of the mouse.
     @Test
-    public void testOneMouseLaptopPair() {
-        laptop = new CartItem("Laptop", 1000.0, 1);
-        mouse = new CartItem("Mouse", 50.0, 1);
-        cartItems.add(laptop);
-        cartItems.add(mouse);
-        double discount = discountService.calculateBundleDiscount(cartItems, customerType);
-        assertEquals(50.0, discount, 0.01);
+    public void testBundleDiscount_OneMouseLaptopPair() {
+        laptopItem = new CartItem(laptop, 1);
+        mouseItem = new CartItem(mouse, 1);
+        cartItems.add(laptopItem);
+        cartItems.add(mouseItem);
+        //double discount = discountService.applyDiscount(550.0, customerType, cartItems, null);
+        assertEquals(545.0, discountService.applyDiscount(550.0, customerType, cartItems, null)); // 10% off mouse = $5.0 discount
+    }
 
+    // Test two mouse-laptop pairs bundle discount
+    @Test
+    public void testBundleDiscount_TwoMouseLaptopPairs() {
+        laptopItem = new CartItem(laptop, 2);
+        mouseItem = new CartItem(mouse, 2);
+        cartItems.add(laptopItem);
+        cartItems.add(mouseItem);
+        //double discount = discountService.applyDiscount(1100.0, customerType, cartItems, null);
+        assertEquals(1090.0, discountService.applyDiscount(1100.0, customerType, cartItems, null)); // 10% off both mice = $10.0 discount
+    }
+
+    // Test one laptop, two mice bundle discount
+    @Test
+    public void testBundleDiscount_TwoMiceOneLaptop() {
+        laptopItem = new CartItem(laptop, 1);
+        mouseItem = new CartItem(mouse, 2);
+        cartItems.add(laptopItem);
+        cartItems.add(mouseItem);
+        //double discount = discountService.applyDiscount(600.0, customerType, cartItems, null);
+        assertEquals(595.0, discountService.applyDiscount(600.0, customerType, cartItems, null)); // 10% off one mouse = $5.0 discount
+    }
+
+    // Test two laptops, one mouse bundle discount
+    @Test
+    public void testBundleDiscount_TwoLaptopsOneMouse() {
+        laptopItem = new CartItem(laptop, 2);
+        mouseItem = new CartItem(mouse, 1);
+        cartItems.add(laptopItem);
+        cartItems.add(mouseItem);
+        //double discount = discountService.applyDiscount(1050.0, customerType, cartItems, null);
+        assertEquals(1045.0, discountService.applyDiscount(1050.0, customerType, cartItems, null)); // 10% off one mouse = $5.0 discount
+    }
 
 }
