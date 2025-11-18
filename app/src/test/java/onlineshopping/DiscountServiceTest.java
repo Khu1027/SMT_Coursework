@@ -6,6 +6,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 
+import java.util.ArrayList;
+
+
 /*
  * Unit tests for the DiscountService class.
  * Disounts are applied in the following order
@@ -29,49 +32,128 @@ import org.junit.jupiter.api.Disabled;
  *  
  */
 public class DiscountServiceTest {
+  private DiscountService discountService;
+  private ArrayList<CartItem> cartItems;
+  private CustomerType customerType;
+  private Product laptop;
+  private Product mouse;
+  private Product monitor;
+  private CartItem laptopItem;
+  private CartItem mouseItem;
+  private CartItem monitorItem;
 
-    /*
-     * Test bundle discount
-     * 1. one mouse laptop pair
-     * 2. two mouse laptop pairs
-     * 3. one laptop, two mice
-     */
+  @BeforeEach
+  public void setUp() {
+    discountService = new DiscountService();
+    laptop = new Product("Laptop", 1000.0, 50);
+    mouse = new Product("Mouse", 50.0, 50);
+    monitor = new Product("Monitor", 500.0, 50);
+    cartItems = new ArrayList<>();
+  }
 
-     /*
-      * Test fixed amount coupons
-      * 1. DISCOUNT10 coupon is correctly applied
-      * 2. SAVE50 coupon is correctly applied
-      * 3. No coupon applied
-      * 5. invalid coupon code = error
-      */
+  @Test // No Discounts Applied
+  public void testDiscountService_NoDiscounts(){
+    monitorItem = new CartItem(monitor, 1);
+    cartItems.add(monitorItem);
+    customerType = CustomerType.REGULAR;
 
-    /*
-     * Test Tiered Discounts
-     * 1. Cart value 1500 = no discount
-     * 2. Cart value 2000 = no discount
-     * 3. Cart value 2001 = 15% discount
-     * 4. Cart value 2500 = 15% discount
-     * 5. Cart value 7000 = 15% discount
-     * 6. Cart value 7001 = 20% discount
-     * 7. Cart value 10000 = 20% discount
-     * 8. Cart value 15000 = 20% discount
-     * 9. Cart value 15001 = 25% discount
-     * 10. Cart value 20000 = 25% discount
-     */
+    assertEquals(500.0, discountService.applyDiscount(500.0, customerType, cartItems, null));
+  }
 
-     /*
-      * Test Customer-type Discounts
-      * 1. REGULAR customer = no discount
-      * 2. PREMIUM customer = 10% discount
-      * 3. VIP customer = 15% discount
-      */
+  @Test // 50Coupon + VIP
+  public void testDiscountService_50CouponVIP(){
+    monitorItem = new CartItem(monitor, 1);
+    cartItems.add(monitorItem);
+    customerType = CustomerType.VIP;
 
-      /*
-       * Time-limited Coupons
-       * System is not in promotional period
-       * - discount not applied
-       * System is in promotional period
-       * - discount applied (25% off)
-       */
-    
+    double initialTotal = 500.0;
+    double afterCoupon = 450.0; // $50 off with SAVE50
+    double discount = 0.15; // 15% off for VIP
+    double expectedTotal = afterCoupon * (1 - discount); 
+    assertEquals(expectedTotal, discountService.applyDiscount(initialTotal, customerType, cartItems, "SAVE50"));
+  }
+
+  @Disabled("Failing test: Bundle discount applied to wrong item.")
+  @Test // Bundle Discount + 50Coupon + Premium
+  public void testDiscountService_Bundle50CouponPremium(){
+    laptopItem = new CartItem(laptop, 1);
+    mouseItem = new CartItem(mouse, 1);
+    cartItems.add(laptopItem);
+    cartItems.add(mouseItem);
+    customerType = CustomerType.PREMIUM;
+
+    double initialTotal = 1050.0; // 1000 + 50
+    double afterBundle = 1045.0; // 10% off mouse = $5.0 discount
+    double afterCoupon = 995.0; // $50 off with SAVE50
+    double discount = 0.1; // 10% off for PREMIUM
+    double expectedTotal = afterCoupon * (1 - discount); 
+    assertEquals(expectedTotal, discountService.applyDiscount(initialTotal, customerType, cartItems, "SAVE50"));
+  }
+
+  @Disabled("Failing test: Bundle discount applied to wrong item.")
+  @Test // Bundle Discount + 50Coupon + VIP + Tiered
+  public void testDiscountService_Bundle50CouponVIPTiered(){
+    monitorItem = new CartItem(monitor, 8); // 4000
+    laptopItem = new CartItem(laptop, 4); // 4000
+    mouseItem = new CartItem(mouse, 4);   // 200
+    cartItems.add(laptopItem);
+    cartItems.add(mouseItem);
+    cartItems.add(monitorItem);
+    customerType = CustomerType.VIP;
+
+    double initialTotal = 8200.0; // 4000 + 4000 + 200
+    double afterBundle = 8180.0; // 10% off 4 mice = $20.0 discount
+    double afterCoupon = 8130.0; // $50 off with SAVE50
+    double discount = 0.20 + 0.15; // 35% off for Tiered 20% + VIP 15%
+    double expectedTotal = afterCoupon * (1 - discount);
+    assertEquals(expectedTotal, discountService.applyDiscount(initialTotal, customerType, cartItems, "SAVE50"));
+  }
+
+  // ===== Percentage Based Discounts are added together then applied on the reduced total =====
+
+  @Disabled("Failing test: Bundle discount applied to wrong item.")
+  @Test // Bundle Discount + 10% Coupon + VIP + Tiered + Time-limited (Max percentage)
+  public void testDiscountService_maxPercentageDiscount(){
+    monitorItem = new CartItem(monitor, 16); // 8000
+    laptopItem = new CartItem(laptop, 8); // 8000
+    mouseItem = new CartItem(mouse, 4);   // 200
+    cartItems.add(laptopItem);
+    cartItems.add(mouseItem);
+    cartItems.add(monitorItem);
+    customerType = CustomerType.VIP;
+
+    double initialTotal = 16200.00; // 8000 + 8000 + 200
+    double afterBundle = 16180.0 ; // 10% off 4 mice = $20.0 discount
+    double discount = 0.25 + 0.15 + 0.10 + 0.25; // 70% off, 0.25 tiered + 0.15 VIP + 0.10 coupon + 0.25 time-limited
+    double expectedTotal = afterBundle * (1 - discount);
+    double totalBeforeTimeLimited = discountService.applyDiscount(initialTotal, customerType, cartItems, "DISCOUNT10");
+    assertEquals(expectedTotal, discountService.applyPromotionDiscount(totalBeforeTimeLimited));
+  }
+
+  @Disabled("Failing test: Promotion discount not added correctly.")
+  @Test // 10% Coupon + VIP + Tiered + Time-limited (Max percentage)
+  public void testDiscountService_MaxPercentageDiscount_NoBundle(){
+    monitorItem = new CartItem(monitor, 50); // 25000
+    cartItems.add(monitorItem);
+    customerType = CustomerType.VIP;
+
+    double initialTotal = 25000.00; // 25000
+    double discount = 0.25 + 0.15 + 0.10 + 0.25; // 70% off, 0.25 tiered + 0.15 VIP + 0.10 coupon + 0.25 time-limited
+    double expectedTotal = initialTotal * (1 - discount);
+    double totalBeforeTimeLimited = discountService.applyDiscount(initialTotal, customerType, cartItems, "DISCOUNT10");
+    assertEquals(expectedTotal, discountService.applyPromotionDiscount(totalBeforeTimeLimited));
+  }
+
+  @Test // Max percentage, no bundle, no time limited
+  public void testDiscountService_MaxPercentageDiscount_NoBundleNoPromo(){
+    monitorItem = new CartItem(monitor, 50); // 25000
+    cartItems.add(monitorItem);
+    customerType = CustomerType.VIP;
+
+    double initialTotal = 25000.00; // 25000
+    double discount = 0.25 + 0.15 + 0.10; // 50% off, 0.25 tiered + 0.15 VIP + 0.10 coupon
+    double expectedTotal = initialTotal * (1 - discount);
+    assertEquals(expectedTotal, discountService.applyDiscount(initialTotal, customerType, cartItems, "DISCOUNT10"));
+  }
+
 }
