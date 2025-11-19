@@ -41,7 +41,7 @@ public class CustomerTypeDiscountTest {
     }
 
     // Failed Test: Premium customers receive 20% discount instead of 10%
-    @Disabled("Failing test: Premium customers receive 20% discount instead of 10%.")
+    // @Disabled("Failing test: Premium customers receive 20% discount instead of 10%.")
     @Test
     public void testCustomerTypeDiscount_Premium() {
         customerType = CustomerType.PREMIUM; // 10% discount

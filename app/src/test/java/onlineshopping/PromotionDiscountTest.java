@@ -54,7 +54,7 @@ public class PromotionDiscountTest {
     }
 
     // Failed test: Promotion discount does not add with other discounts. Instead if promotion is active, only promotion discount is applied.
-    @Disabled("Failing test: Promotion discount does not combine correctly with other discounts.")
+    // @Disabled("Failing test: Promotion discount does not combine correctly with other discounts.")
     @Test
     public void testPromotionDiscount_PromotionWithOtherDiscounts(){
         customer = new Customer("John Smith", CustomerType.VIP);
@@ -69,7 +69,7 @@ public class PromotionDiscountTest {
     }
 
     // Failed test: Promotion discount does not add with other discounts. Instead if promotion is active, only promotion discount is applied.
-    @Disabled("Failing test: Promotion discount does not combine correctly with other discounts.")
+    // @Disabled("Failing test: Promotion discount does not combine correctly with other discounts.")
     @Test
     public void testPromotionDiscount_PromotionWithCoupon(){
         shoppingCart.addItem(monitorItem);

@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class CustomerTypeTest {
 
     @Test
-    public void testCustomerTypeValues() {
+    public void testCustomerType_Values() {
         CustomerType[] types = CustomerType.values();
         
         assertEquals(3, types.length);

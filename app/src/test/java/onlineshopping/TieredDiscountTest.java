@@ -49,7 +49,7 @@ public class TieredDiscountTest {
     }
 
     // Failed Test: Tiered discounts should start at 2000, not 1000
-    @Disabled("Failing test: Tiered discount starts discounts at 1000 rather than 2000.")
+    // @Disabled("Failing test: Tiered discount starts discounts at 1000 rather than 2000.")
     @Test // Cart value 1500 = no discount
     public void testTieredDiscount_CartValue1500() {
         monitorItem = new CartItem(monitor, 3); // 1500
@@ -59,7 +59,7 @@ public class TieredDiscountTest {
     }
 
     // Failed Test: Tiered discounts should start at 2000, not 1000
-    @Disabled("Failing test: Tiered discount starts discounts at 1000 rather than 2000.")
+    // @Disabled("Failing test: Tiered discount starts discounts at 1000 rather than 2000.")
     @Test // Cart value 2000 = no discount
     public void testTieredDiscount_CartValue2000() {
         monitorItem = new CartItem(monitor, 4); // 2000

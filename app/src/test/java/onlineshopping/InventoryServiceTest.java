@@ -19,7 +19,7 @@ public class InventoryServiceTest {
     }
 
     @Test
-    public void testInventoryServiceUpdateStockValid() {
+    public void testInventoryService_UpdateStockValid() {
         CartItem cartItem = new CartItem(product, 3);
         inventoryService.updateStock(cartItem);
 
@@ -27,7 +27,7 @@ public class InventoryServiceTest {
     }
 
     @Test
-    public void testInventoryServiceUpdateStockExact() {
+    public void testInventoryService_UpdateStockExact() {
         CartItem cartItem = new CartItem(product, 10);
         inventoryService.updateStock(cartItem);
 
@@ -35,7 +35,7 @@ public class InventoryServiceTest {
     }
 
     @Test
-    public void testInventoryServiceProductStockSaves() {
+    public void testInventoryService_ProductStockSaves() {
         CartItem cartItem = new CartItem(product, 5);
         inventoryService.updateStock(cartItem);
         assertEquals(5, product.getStock());
@@ -45,7 +45,7 @@ public class InventoryServiceTest {
     }
 
     @Test
-    public void testInventoryServiceUpdateStockInvalid() {
+    public void testInventoryService_UpdateStockInvalid() {
         CartItem cartItem = new CartItem(product, 15);
         try {
             inventoryService.updateStock(cartItem);

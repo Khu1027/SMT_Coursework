@@ -61,7 +61,7 @@ public class PlaceOrderTest {
     }
 
     // Failed Test: Stock is updated even when payment fails
-    @Disabled("Failing test: Stock is updated even when payment fails.")
+    // @Disabled("Failing test: Stock is updated even when payment fails.")
     @Test // Failed Order Does Not Update Stock
     public void testPlaceOrder_FailedDoesNotUpdateStock() throws Exception {
         shoppingCart.addItem(monitorItem);
@@ -77,7 +77,7 @@ public class PlaceOrderTest {
     }
 
     // Failing Test: Does not capture total with discounts
-    @Disabled("Failing test: Cannot capture total with discounts applied.")
+    // @Disabled("Failing test: Cannot capture total with discounts applied.")
     @Test // Correct Total Calculation with Discounts
     public void testPlaceOrder_CorrectTotalCalculation() throws Exception {
         shoppingCart.addItem(monitorItem);

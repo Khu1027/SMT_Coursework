@@ -21,28 +21,28 @@ public class CustomerTest {
     }
 
     @Test
-    public void testCustomerGetName() {
+    public void testCustomer_GetName() {
         assertEquals("Raoul", regularCustomer.getName());
         assertEquals("Priya", premiumCustomer.getName());
         assertEquals("Vicky", vipCustomer.getName());
     }
 
     @Test
-    public void testCustomerGetCustomerType() {
+    public void testCustomer_GetCustomerType() {
         assertEquals(CustomerType.REGULAR, regularCustomer.getCustomerType());
         assertEquals(CustomerType.PREMIUM, premiumCustomer.getCustomerType());
         assertEquals(CustomerType.VIP, vipCustomer.getCustomerType());
     }
 
     @Test
-    public void testCustomerSetName() {
+    public void testCustomer_SetName() {
         regularCustomer.setName("Ravi");
 
         assertEquals("Ravi", regularCustomer.getName());
     }
 
     @Test
-    public void testCustomerSetCustomerType() {
+    public void testCustomer_SetCustomerType() {
         regularCustomer.setCustomerType(CustomerType.PREMIUM);
 
         assertEquals(CustomerType.PREMIUM, regularCustomer.getCustomerType());

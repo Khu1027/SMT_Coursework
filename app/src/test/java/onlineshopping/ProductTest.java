@@ -17,40 +17,40 @@ public class ProductTest {
     }
 
     @Test
-    public void testProductGetName() {
+    public void testProduct_GetName() {
         assertEquals("Laptop", product.getName());
     }
 
     @Test
-    public void testProductGetPrice() {
+    public void testProduct_GetPrice() {
         assertEquals(1000.0, product.getPrice());
     }
 
     @Test
-    public void testProductGetStock() {
+    public void testProduct_GetStock() {
         assertEquals(10, product.getStock());
     }
 
     @Test
-    public void testProductSetStock() {
+    public void testProduct_SetStock() {
         product.setStock(20);
         assertEquals(20, product.getStock());
     }
 
     @Test
-    public void testProductReduceStock() {
+    public void testProduct_ReduceStock() {
         product.reduceStock(3);
         assertEquals(7, product.getStock());
     }
 
     @Test
-    public void testProductReduceStockToZero() {
+    public void testProduct_ReduceStockToZero() {
         product.reduceStock(10);
         assertEquals(0, product.getStock());
     }
 
     @Test
-    public void testProductReduceStockException() {
+    public void testProduct_ReduceStockException() {
         try {
             product.reduceStock(11);
         } catch (IllegalArgumentException e) {

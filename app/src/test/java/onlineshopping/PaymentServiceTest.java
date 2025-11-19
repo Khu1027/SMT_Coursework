@@ -23,7 +23,7 @@ public class PaymentServiceTest {
     }
 
     @Test
-    public void testPaymentServiceValidPayment() {
+    public void testPaymentService_ValidPayment() {
         try {
             boolean result = paymentService.processPayment(validCardNumber, validAmount);
 
@@ -34,7 +34,7 @@ public class PaymentServiceTest {
     }
 
     @Test
-    public void testPaymentServiceInvalidCardAndAmount() {
+    public void testPaymentService_InvalidCardAndAmount() {
         String invalidCardNumber = "1234"; // Invalid length != 16
         double invalidAmount = -50.0; // Invalid amount is zero or negative
         
@@ -50,9 +50,9 @@ public class PaymentServiceTest {
     }
 
     // This test fails because PaymentService only throws an exception if both the card and amount are invalid.
-    @Disabled("Failing test: PaymentService allows invalid card numbers without exception.")
+    // @Disabled("Failing test: PaymentService allows invalid card numbers without exception.")
     @Test
-    public void testPaymentServiceInvalidCard() {
+    public void testPaymentService_InvalidCard() {
         String invalidCardNumber = "1234"; // Invalid length != 16
         
         try {
@@ -68,9 +68,9 @@ public class PaymentServiceTest {
 
     // This test fails because PaymentService only throws an exception if both the card and amount are invalid.
     // The service also allows zero amounts to be processed without error.
-    @Disabled("Failing test: PaymentService allows zero amounts without exception.")
+    // @Disabled("Failing test: PaymentService allows zero amounts without exception.")
     @Test
-    public void testPaymentServiceInvalidAmountZero() {
+    public void testPaymentService_InvalidAmountZero() {
         double invalidAmount = 0.0; // Invalid amount is zero or negative
         
         try {
@@ -85,9 +85,9 @@ public class PaymentServiceTest {
     }
 
     //This test fails because PaymentService only throws an exception if both the card and amount are invalid.
-    @Disabled("Failing test: PaymentService allows invalid amounts without exception.")
+    // @Disabled("Failing test: PaymentService allows invalid amounts without exception.")
     @Test
-    public void testPaymentServiceInvalidAmountNegative() {
+    public void testPaymentService_InvalidAmountNegative() {
         double invalidAmount = -50.0; // Invalid amount is zero or negative
         
         try {

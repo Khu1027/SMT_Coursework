@@ -71,7 +71,7 @@ public class DiscountServiceTest {
     assertEquals(expectedTotal, discountService.applyDiscount(initialTotal, CustomerType.VIP, cartItems, "SAVE50"));
   }
 
-  @Disabled("Failing test: Bundle discount applied to wrong item.")
+  // @Disabled("Failing test: Bundle discount applied to wrong item.")
   @Test // Bundle Discount + 50Coupon + Premium
   public void testDiscountService_Bundle50CouponPremium(){
     laptopItem = new CartItem(laptop, 1);
@@ -88,7 +88,7 @@ public class DiscountServiceTest {
     assertEquals(expectedTotal, discountService.applyDiscount(initialTotal, CustomerType.PREMIUM, cartItems, "SAVE50"));
   }
 
-  @Disabled("Failing test: Bundle discount applied to wrong item.")
+  // @Disabled("Failing test: Bundle discount applied to wrong item.")
   @Test // Bundle Discount + 50Coupon + VIP + Tiered
   public void testDiscountService_Bundle50CouponVIPTiered(){
     monitorItem = new CartItem(monitor, 8); // 4000
