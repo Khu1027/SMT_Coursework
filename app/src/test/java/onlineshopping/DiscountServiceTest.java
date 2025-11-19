@@ -14,14 +14,14 @@ import java.util.ArrayList;
  * Disounts are applied in the following order
  * 1. Bundle Discounts
  * 2. Fixed Amount Coupons
- * 3. Percentage Based Discounts (Tiered, Customer-type, Percentage Coupons, Time-limited Coupons)
+ * 3. Percentage Based Discounts (Tiered, Customer-type, Percentage Coupons, Promotion Discount)
  * 
  * Bundle Discounts: 10% off mouse, for each mouse-laptop pair in the cart
  * Fixed Amount Coupons: DISCOUNT10 for 10% off, SAVE50 for $50 off (only 1 coupon per order)
  * Percentage Based Discounts:
  *  Tiered Discounts: 15% off for carts > 2000, 20% off for cards > 7000, 25% off for carts > 15000
  *  Customer-type Discounts: 10% off for PREMIUM customers, 15% off for VIP customers
- *  Time-limited Coupons: 25% off during promotional periods
+ *  Promotion Discount: 25% off during promotional periods
  * 
  * How to calculate final price:
  * 1. Start with the total cart value
@@ -108,41 +108,6 @@ public class DiscountServiceTest {
     double expectedTotal = afterCoupon * (1 - discount);
     assertEquals(expectedTotal, discountService.applyDiscount(initialTotal, customerType, cartItems, "SAVE50"));
   }
-
-  // ===== Percentage Based Discounts are added together then applied on the reduced total =====
-
-  // @Disabled("Failing test: Bundle discount applied to wrong item.")
-  // @Test // Bundle Discount + 10% Coupon + VIP + Tiered + Time-limited (Max percentage)
-  // public void testDiscountService_maxPercentageDiscount(){
-  //   monitorItem = new CartItem(monitor, 16); // 8000
-  //   laptopItem = new CartItem(laptop, 8); // 8000
-  //   mouseItem = new CartItem(mouse, 4);   // 200
-  //   cartItems.add(laptopItem);
-  //   cartItems.add(mouseItem);
-  //   cartItems.add(monitorItem);
-  //   customerType = CustomerType.VIP;
-
-  //   double initialTotal = 16200.00; // 8000 + 8000 + 200
-  //   double afterBundle = 16180.0 ; // 10% off 4 mice = $20.0 discount
-  //   double discount = 0.25 + 0.15 + 0.10 + 0.25; // 70% off, 0.25 tiered + 0.15 VIP + 0.10 coupon + 0.25 time-limited
-  //   double expectedTotal = afterBundle * (1 - discount);
-  //   double totalBeforeTimeLimited = discountService.applyDiscount(initialTotal, customerType, cartItems, "DISCOUNT10");
-  //   assertEquals(expectedTotal, discountService.applyPromotionDiscount(totalBeforeTimeLimited));
-  // }
-
-  // @Disabled("Failing test: Promotion discount not added correctly.")
-  // @Test // 10% Coupon + VIP + Tiered + Time-limited (Max percentage)
-  // public void testDiscountService_MaxPercentageDiscount_NoBundle(){
-  //   monitorItem = new CartItem(monitor, 50); // 25000
-  //   cartItems.add(monitorItem);
-  //   customerType = CustomerType.VIP;
-
-  //   double initialTotal = 25000.00; // 25000
-  //   double discount = 0.25 + 0.15 + 0.10 + 0.25; // 70% off, 0.25 tiered + 0.15 VIP + 0.10 coupon + 0.25 time-limited
-  //   double expectedTotal = initialTotal * (1 - discount);
-  //   double totalBeforeTimeLimited = discountService.applyDiscount(initialTotal, customerType, cartItems, "DISCOUNT10");
-  //   assertEquals(expectedTotal, discountService.applyPromotionDiscount(totalBeforeTimeLimited));
-  // }
 
   @Test // Max percentage, no bundle, no time limited
   public void testDiscountService_MaxPercentageDiscount_NoBundleNoPromo(){
