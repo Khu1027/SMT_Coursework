@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Disabled;
 
 import java.util.ArrayList;
 
-
 /*
  * Unit tests for the DiscountService class.
  * Disounts are applied in the following order
@@ -34,7 +33,6 @@ import java.util.ArrayList;
 public class DiscountServiceTest {
   private DiscountService discountService;
   private ArrayList<CartItem> cartItems;
-  private CustomerType customerType;
   private Product laptop;
   private Product mouse;
   private Product monitor;
@@ -48,6 +46,7 @@ public class DiscountServiceTest {
     laptop = new Product("Laptop", 1000.0, 50);
     mouse = new Product("Mouse", 50.0, 50);
     monitor = new Product("Monitor", 500.0, 50);
+
     cartItems = new ArrayList<>();
   }
 
@@ -55,22 +54,21 @@ public class DiscountServiceTest {
   public void testDiscountService_NoDiscounts(){
     monitorItem = new CartItem(monitor, 1);
     cartItems.add(monitorItem);
-    customerType = CustomerType.REGULAR;
 
-    assertEquals(500.0, discountService.applyDiscount(500.0, customerType, cartItems, null));
+    assertEquals(500.0, discountService.applyDiscount(500.0, CustomerType.REGULAR, cartItems, null));
   }
 
   @Test // 50Coupon + VIP
   public void testDiscountService_50CouponVIP(){
     monitorItem = new CartItem(monitor, 1);
     cartItems.add(monitorItem);
-    customerType = CustomerType.VIP;
 
     double initialTotal = 500.0;
     double afterCoupon = 450.0; // $50 off with SAVE50
     double discount = 0.15; // 15% off for VIP
     double expectedTotal = afterCoupon * (1 - discount); 
-    assertEquals(expectedTotal, discountService.applyDiscount(initialTotal, customerType, cartItems, "SAVE50"));
+  
+    assertEquals(expectedTotal, discountService.applyDiscount(initialTotal, CustomerType.VIP, cartItems, "SAVE50"));
   }
 
   @Disabled("Failing test: Bundle discount applied to wrong item.")
@@ -80,14 +78,14 @@ public class DiscountServiceTest {
     mouseItem = new CartItem(mouse, 1);
     cartItems.add(laptopItem);
     cartItems.add(mouseItem);
-    customerType = CustomerType.PREMIUM;
 
     double initialTotal = 1050.0; // 1000 + 50
     double afterBundle = 1045.0; // 10% off mouse = $5.0 discount
     double afterCoupon = 995.0; // $50 off with SAVE50
     double discount = 0.1; // 10% off for PREMIUM
     double expectedTotal = afterCoupon * (1 - discount); 
-    assertEquals(expectedTotal, discountService.applyDiscount(initialTotal, customerType, cartItems, "SAVE50"));
+
+    assertEquals(expectedTotal, discountService.applyDiscount(initialTotal, CustomerType.PREMIUM, cartItems, "SAVE50"));
   }
 
   @Disabled("Failing test: Bundle discount applied to wrong item.")
@@ -99,26 +97,26 @@ public class DiscountServiceTest {
     cartItems.add(laptopItem);
     cartItems.add(mouseItem);
     cartItems.add(monitorItem);
-    customerType = CustomerType.VIP;
 
     double initialTotal = 8200.0; // 4000 + 4000 + 200
     double afterBundle = 8180.0; // 10% off 4 mice = $20.0 discount
     double afterCoupon = 8130.0; // $50 off with SAVE50
     double discount = 0.20 + 0.15; // 35% off for Tiered 20% + VIP 15%
     double expectedTotal = afterCoupon * (1 - discount);
-    assertEquals(expectedTotal, discountService.applyDiscount(initialTotal, customerType, cartItems, "SAVE50"));
+
+    assertEquals(expectedTotal, discountService.applyDiscount(initialTotal, CustomerType.VIP, cartItems, "SAVE50"));
   }
 
   @Test // Max percentage, no bundle, no time limited
   public void testDiscountService_MaxPercentageDiscount_NoBundleNoPromo(){
     monitorItem = new CartItem(monitor, 50); // 25000
     cartItems.add(monitorItem);
-    customerType = CustomerType.VIP;
 
     double initialTotal = 25000.00; // 25000
     double discount = 0.25 + 0.15 + 0.10; // 50% off, 0.25 tiered + 0.15 VIP + 0.10 coupon
     double expectedTotal = initialTotal * (1 - discount);
-    assertEquals(expectedTotal, discountService.applyDiscount(initialTotal, customerType, cartItems, "DISCOUNT10"));
+
+    assertEquals(expectedTotal, discountService.applyDiscount(initialTotal, CustomerType.VIP, cartItems, "DISCOUNT10"));
   }
 
 }

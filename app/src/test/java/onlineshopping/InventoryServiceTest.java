@@ -22,6 +22,7 @@ public class InventoryServiceTest {
     public void testInventoryServiceUpdateStockValid() {
         CartItem cartItem = new CartItem(product, 3);
         inventoryService.updateStock(cartItem);
+
         assertEquals(7, product.getStock());
     }
 
@@ -29,6 +30,7 @@ public class InventoryServiceTest {
     public void testInventoryServiceUpdateStockExact() {
         CartItem cartItem = new CartItem(product, 10);
         inventoryService.updateStock(cartItem);
+
         assertEquals(0, product.getStock());
     }
 
@@ -37,6 +39,7 @@ public class InventoryServiceTest {
         CartItem cartItem = new CartItem(product, 5);
         inventoryService.updateStock(cartItem);
         assertEquals(5, product.getStock());
+
         inventoryService.updateStock(new CartItem(product, 2));
         assertEquals(3, product.getStock());
     }
@@ -50,6 +53,7 @@ public class InventoryServiceTest {
         } catch (RuntimeException e) {
             String expectedMessage = "Failed to update stock for product: Laptop";
             String actualMessage = e.getMessage();
+            
             assertTrue(actualMessage.contains(expectedMessage));
         }
     }

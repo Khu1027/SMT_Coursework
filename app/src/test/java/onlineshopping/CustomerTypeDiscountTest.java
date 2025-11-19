@@ -36,6 +36,7 @@ public class CustomerTypeDiscountTest {
     @Test
     public void testCustomerTypeDiscount_Regular() {
         customerType = CustomerType.REGULAR;
+
         assertEquals(500.0, discountService.applyDiscount(500.0, customerType, cartItems, null));
     }
 
@@ -44,15 +45,15 @@ public class CustomerTypeDiscountTest {
     @Test
     public void testCustomerTypeDiscount_Premium() {
         customerType = CustomerType.PREMIUM; // 10% discount
+
         assertEquals(450.0, discountService.applyDiscount(500.0, customerType, cartItems, null));
     }
 
     @Test
     public void testCustomerTypeDiscount_VIP() {
         customerType = CustomerType.VIP; // 15% discount
+
         assertEquals(425.0, discountService.applyDiscount(500.0, customerType, cartItems, null));
     }
-
-    // Assumption that customer-type cannot be anything else
     
 }

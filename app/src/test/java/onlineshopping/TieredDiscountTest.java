@@ -44,6 +44,7 @@ public class TieredDiscountTest {
     public void testTieredDiscount_CartValue500() {
         monitorItem = new CartItem(monitor, 1); // 500
         cartItems.add(monitorItem);
+
         assertEquals(500.0, discountService.applyDiscount(500.0, customerType, cartItems, null));
     }
 
@@ -53,6 +54,7 @@ public class TieredDiscountTest {
     public void testTieredDiscount_CartValue1500() {
         monitorItem = new CartItem(monitor, 3); // 1500
         cartItems.add(monitorItem);
+
         assertEquals(1500.0, discountService.applyDiscount(1500.0, customerType, cartItems, null));
     }
 
@@ -62,6 +64,7 @@ public class TieredDiscountTest {
     public void testTieredDiscount_CartValue2000() {
         monitorItem = new CartItem(monitor, 4); // 2000
         cartItems.add(monitorItem);
+
         assertEquals(2000.0, discountService.applyDiscount(2000.0, customerType, cartItems, null));
     }
 
@@ -69,8 +72,10 @@ public class TieredDiscountTest {
     public void testTieredDiscount_CartValue2001() {
         monitorItem = new CartItem(monitor, 4); // 2000
         lollipopItem = new CartItem(lollipop, 1); // 1
+
         cartItems.add(monitorItem);
         cartItems.add(lollipopItem);
+
         assertEquals(1700.85, discountService.applyDiscount(2001.0, customerType, cartItems, null));
     }
 
@@ -78,6 +83,7 @@ public class TieredDiscountTest {
     public void testTieredDiscount_CartValue2500() {
         monitorItem = new CartItem(monitor, 5); // 2500
         cartItems.add(monitorItem);
+
         assertEquals(2125.0, discountService.applyDiscount(2500.0, customerType, cartItems, null));
     }
 
@@ -85,6 +91,7 @@ public class TieredDiscountTest {
     public void testTieredDiscount_CartValue7000() {
         monitorItem = new CartItem(monitor, 14); // 7000
         cartItems.add(monitorItem);
+
         assertEquals(5950.0, discountService.applyDiscount(7000.0, customerType, cartItems, null));
     }
 
@@ -92,8 +99,10 @@ public class TieredDiscountTest {
     public void testTieredDiscount_CartValue7001() {
         monitorItem = new CartItem(monitor, 14); // 7000
         lollipopItem = new CartItem(lollipop, 1); // 1
+
         cartItems.add(monitorItem);
         cartItems.add(lollipopItem);
+
         assertEquals(5600.8, discountService.applyDiscount(7001.0, customerType, cartItems, null));
     }
 
@@ -101,6 +110,7 @@ public class TieredDiscountTest {
     public void testTieredDiscount_CartValue10000() {
         monitorItem = new CartItem(monitor, 20); // 10000
         cartItems.add(monitorItem);
+
         assertEquals(8000.0, discountService.applyDiscount(10000.0, customerType, cartItems, null));
     }
 
@@ -108,6 +118,7 @@ public class TieredDiscountTest {
     public void testTieredDiscount_CartValue15000() {
         monitorItem = new CartItem(monitor, 30); // 15000
         cartItems.add(monitorItem);
+
         assertEquals(12000.0, discountService.applyDiscount(15000.0, customerType, cartItems, null));
     }
 
@@ -115,8 +126,10 @@ public class TieredDiscountTest {
     public void testTieredDiscount_CartValue15001() {
         monitorItem = new CartItem(monitor, 30); // 15000
         lollipopItem = new CartItem(lollipop, 1); // 1
+
         cartItems.add(monitorItem);
         cartItems.add(lollipopItem);
+
         assertEquals(11250.75, discountService.applyDiscount(15001.0, customerType, cartItems, null));
     }
 
@@ -124,6 +137,7 @@ public class TieredDiscountTest {
     public void testTieredDiscount_CartValue20000() {
         monitorItem = new CartItem(monitor, 40); // 20000
         cartItems.add(monitorItem);
+        
         assertEquals(15000.0, discountService.applyDiscount(20000.0, customerType, cartItems, null));
     }
     

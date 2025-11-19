@@ -28,10 +28,11 @@ public class CouponDiscountTest {
     public void setUp() {
         discountService = new DiscountService();
         monitor = new Product("Monitor", 500.0, 10);
+        monitorItem = new CartItem(monitor, 1);
+
         cartItems = new ArrayList<>();
         customerType = CustomerType.REGULAR;
 
-        monitorItem = new CartItem(monitor, 1);
         cartItems.add(monitorItem);
     }
 
@@ -60,6 +61,7 @@ public class CouponDiscountTest {
         } catch (IllegalArgumentException e) {
             String expectedMessage = "Invalid coupon code";
             String actualMessage = e.getMessage();
+
             assertTrue(actualMessage.contains(expectedMessage));
         }
     }
@@ -74,6 +76,7 @@ public class CouponDiscountTest {
         } catch (IllegalArgumentException e) {
             String expectedMessage = "Invalid coupon code";
             String actualMessage = e.getMessage();
+
             assertTrue(actualMessage.contains(expectedMessage));
         }    
     }
@@ -88,6 +91,7 @@ public class CouponDiscountTest {
         } catch (IllegalArgumentException e) {
             String expectedMessage = "Invalid coupon code";
             String actualMessage = e.getMessage();
+
             assertTrue(actualMessage.contains(expectedMessage));
         }
     }
@@ -101,4 +105,5 @@ public class CouponDiscountTest {
     public void testCouponDiscount_ValidSAVE50() {
         assertEquals(450.0, discountService.applyDiscount(500.0, customerType, cartItems, "SAVE50")); // $50 off
     }
+    
 }

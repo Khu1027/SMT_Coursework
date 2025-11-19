@@ -118,7 +118,8 @@ public class ShoppingCartTest {
         when(discountService.applyPromotionDiscount(500.0)).thenReturn(375.0);
 
         assertEquals(375.0, shoppingCart.calculateFinalPrice());
-        verify(discountService, times(1)).applyPromotionDiscount(500.0);
+        verify(discountService, times(1))
+            .applyPromotionDiscount(500.0);
     }
 
     @Test // Test printing receipt

@@ -26,6 +26,7 @@ public class PaymentServiceTest {
     public void testPaymentServiceValidPayment() {
         try {
             boolean result = paymentService.processPayment(validCardNumber, validAmount);
+
             assertTrue(result);
         } catch (Exception e) {
             fail("Payment processing threw an exception for valid input");
@@ -36,12 +37,14 @@ public class PaymentServiceTest {
     public void testPaymentServiceInvalidCardAndAmount() {
         String invalidCardNumber = "1234"; // Invalid length != 16
         double invalidAmount = -50.0; // Invalid amount is zero or negative
+        
         try {
             paymentService.processPayment(invalidCardNumber, invalidAmount);
             fail("Expected Exception for invalid card number and amount");
         } catch (Exception e) {
             String expectedMessage = "Payment failed: Invalid card or amount.";
             String actualMessage = e.getMessage();
+
             assertTrue(actualMessage.contains(expectedMessage));
         }
     }
@@ -51,12 +54,14 @@ public class PaymentServiceTest {
     @Test
     public void testPaymentServiceInvalidCard() {
         String invalidCardNumber = "1234"; // Invalid length != 16
+        
         try {
             boolean result = paymentService.processPayment(invalidCardNumber, validAmount);
             fail("Expected Exception for invalid card number. Result equals: " + result);
         } catch (Exception e) {
             String expectedMessage = "Payment failed: Invalid card or amount.";
             String actualMessage = e.getMessage();
+
             assertTrue(actualMessage.contains(expectedMessage));
         }
     }
@@ -67,12 +72,14 @@ public class PaymentServiceTest {
     @Test
     public void testPaymentServiceInvalidAmountZero() {
         double invalidAmount = 0.0; // Invalid amount is zero or negative
+        
         try {
             paymentService.processPayment(validCardNumber, invalidAmount);
             fail("Expected Exception for invalid amount Zero");
         } catch (Exception e) {
             String expectedMessage = "Payment failed: Invalid card or amount.";
             String actualMessage = e.getMessage();
+
             assertTrue(actualMessage.contains(expectedMessage)); 
         }
     }
@@ -82,12 +89,14 @@ public class PaymentServiceTest {
     @Test
     public void testPaymentServiceInvalidAmountNegative() {
         double invalidAmount = -50.0; // Invalid amount is zero or negative
+        
         try {
             paymentService.processPayment(validCardNumber, invalidAmount);
             fail("Expected Exception for invalid amount Negative");
         } catch (Exception e) {
             String expectedMessage = "Payment failed: Invalid card or amount.";
             String actualMessage = e.getMessage();
+            
             assertTrue(actualMessage.contains(expectedMessage)); 
         }
     }

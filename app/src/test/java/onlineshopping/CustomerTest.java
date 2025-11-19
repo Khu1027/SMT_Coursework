@@ -5,6 +5,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 
+/*
+    * Unit tests for the Customer class.
+ */
 public class CustomerTest {
     private Customer regularCustomer;
     private Customer premiumCustomer;
@@ -34,14 +37,15 @@ public class CustomerTest {
     @Test
     public void testCustomerSetName() {
         regularCustomer.setName("Ravi");
+
         assertEquals("Ravi", regularCustomer.getName());
     }
 
     @Test
     public void testCustomerSetCustomerType() {
         regularCustomer.setCustomerType(CustomerType.PREMIUM);
+
         assertEquals(CustomerType.PREMIUM, regularCustomer.getCustomerType());
     }
-
     
 }

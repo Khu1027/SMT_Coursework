@@ -37,51 +37,62 @@ public class BundleDiscountTest {
 
     // ===== All Failed Tests Below: 10% Bundle discount is applied to the laptop instead of the mouse =====
 
-    // Test one mouse-laptop pair bundle discount
+    // Failed Test: test one mouse-laptop pair bundle discount
     @Disabled("Failing test: Bundle discount applied to wrong item.")
     @Test
     public void testBundleDiscount_OneMouseLaptopPair() {
+        // Arrange
         laptopItem = new CartItem(laptop, 1);
         mouseItem = new CartItem(mouse, 1);
+
+        // Act
         cartItems.add(laptopItem);
         cartItems.add(mouseItem);
         double discount = discountService.applyDiscount(550.0, customerType, cartItems, null);
+
+        // Assert
         assertEquals(545.0, discount); // 10% off mouse = $5.0 discount
     }
 
-    // Test two mouse-laptop pairs bundle discount
+    // Failed Test: Test two mouse-laptop pairs bundle discount
     @Disabled("Failing test: Bundle discount applied to wrong item.")
     @Test
     public void testBundleDiscount_TwoMouseLaptopPairs() {
         laptopItem = new CartItem(laptop, 2);
         mouseItem = new CartItem(mouse, 2);
+
         cartItems.add(laptopItem);
         cartItems.add(mouseItem);
         double discount = discountService.applyDiscount(1100.0, customerType, cartItems, null);
+
         assertEquals(1090.0, discount); // 10% off both mice = $10.0 discount
     }
 
-    // Test one laptop, two mice bundle discount
+    // Failed Test: Test one laptop, two mice bundle discount
     @Disabled("Failing test: Bundle discount applied to wrong item.")
     @Test
     public void testBundleDiscount_TwoMiceOneLaptop() {
         laptopItem = new CartItem(laptop, 1);
         mouseItem = new CartItem(mouse, 2);
+
         cartItems.add(laptopItem);
         cartItems.add(mouseItem);
         double discount = discountService.applyDiscount(600.0, customerType, cartItems, null);
+
         assertEquals(595.0, discount); // 10% off one mouse = $5.0 discount
     }
 
-    // Test two laptops, one mouse bundle discount
+    // Failed Test: Test two laptops, one mouse bundle discount
     @Disabled("Failing test: Bundle discount applied to wrong item.")
     @Test
     public void testBundleDiscount_TwoLaptopsOneMouse() {
         laptopItem = new CartItem(laptop, 2);
         mouseItem = new CartItem(mouse, 1);
+
         cartItems.add(laptopItem);
         cartItems.add(mouseItem);
         double discount = discountService.applyDiscount(1050.0, customerType, cartItems, null);
+        
         assertEquals(1045.0, discount); // 10% off one mouse = $5.0 discount
     }
 

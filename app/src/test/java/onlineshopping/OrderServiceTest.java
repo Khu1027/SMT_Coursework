@@ -13,7 +13,6 @@ import java.util.List;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-
 /*
  * Unit tests for OrderService class.
  */
@@ -51,7 +50,8 @@ public class OrderServiceTest {
         boolean result = orderService.placeOrder(shoppingCart, "1234567891234567");
         
         assertTrue(result);
-        verify(paymentService, times(1)).processPayment(eq("1234567891234567"), anyDouble());
+        verify(paymentService, times(1))
+            .processPayment(eq("1234567891234567"), anyDouble());
     }
 
     @Test // Failed Order Placement: payment processing fails
@@ -68,12 +68,12 @@ public class OrderServiceTest {
         System.setErr(originalErr);
 
         assertFalse(result);
-        verify(paymentService, times(1)).processPayment(eq("123"), anyDouble());
+        verify(paymentService, times(1))
+            .processPayment(eq("123"), anyDouble());
 
         // Check error output
         String output = outputStream.toString().trim();
         assertTrue(output.contains("Order failed: Payment failed"));
     }
 
-    // Additional tests can be added here for concurrency and other scenarios
 }
