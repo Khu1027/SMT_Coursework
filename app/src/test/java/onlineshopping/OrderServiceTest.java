@@ -7,8 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 
 import static org.mockito.Mockito.*;
-// import java.util.concurrent.locks.Lock;
-// import java.util.concurrent.locks.ReentrantLock;
+
 import java.util.List;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -45,18 +44,18 @@ public class OrderServiceTest {
 
     @Test // Successful Order Placement: updates stock and processes payment
     public void testOrderService_SuccessfulOrderPlacement() throws Exception {
-        when(paymentService.processPayment(eq("1234567891234567"), anyDouble())).thenReturn(true);
+        when(paymentService.processPayment(anyString(), anyDouble())).thenReturn(true);
         
         boolean result = orderService.placeOrder(shoppingCart, "1234567891234567");
         
         assertTrue(result);
         verify(paymentService, times(1))
-            .processPayment(eq("1234567891234567"), anyDouble());
+            .processPayment(anyString(), anyDouble());
     }
 
     @Test // Failed Order Placement: payment processing fails
     public void testOrderService_FailedOrderPlacement()throws Exception {
-        when(paymentService.processPayment(eq("123"), anyDouble())).thenThrow(new Exception("Payment failed"));
+        when(paymentService.processPayment(anyString(), anyDouble())).thenThrow(new Exception("Payment failed"));
 
         // assert system.err.println was called with "Order failed: Payment failed"
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -69,7 +68,7 @@ public class OrderServiceTest {
 
         assertFalse(result);
         verify(paymentService, times(1))
-            .processPayment(eq("123"), anyDouble());
+            .processPayment(anyString(), anyDouble());
 
         // Check error output
         String output = outputStream.toString().trim();

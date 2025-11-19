@@ -122,6 +122,7 @@ public class ShoppingCartTest {
             .applyPromotionDiscount(500.0);
     }
 
+    // @Disabled("Failed Test: Print Receipt in Dollars not Pounds")
     @Test // Test printing receipt
     public void testShoppingCart_PrintReceipt() {
         shoppingCart.addItem(monitorItem);
@@ -140,11 +141,12 @@ public class ShoppingCartTest {
         System.setOut(originalOut);
         String receiptOutput = outputStream.toString();
 
+        // test fails as the price is in $ not £
         assertTrue(receiptOutput.contains("----- Shopping Cart Receipt -----"));
-        assertTrue(receiptOutput.contains("Monitor - 1 x $500.0"));
-        assertTrue(receiptOutput.contains("Mouse - 2 x $50.0"));
-        assertTrue(receiptOutput.contains("Total before discount: $600.0"));
-        assertTrue(receiptOutput.contains("Final price after discounts: $450.0"));
+        assertTrue(receiptOutput.contains("Monitor - 1 x £500.0"));
+        assertTrue(receiptOutput.contains("Mouse - 2 x £50.0"));
+        assertTrue(receiptOutput.contains("Total before discount: £600.0"));
+        assertTrue(receiptOutput.contains("Final price after discounts: £450.0"));
     }
 
 }

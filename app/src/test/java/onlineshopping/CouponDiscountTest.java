@@ -66,10 +66,10 @@ public class CouponDiscountTest {
         }
     }
 
-    // Failed Test:Coupons should be case-sensitive
-    // @Disabled("Failing test: DiscountService does not treat coupon codes as case-insensitive.")
+    // Failed Test: Invalid Coupons should raise an error
+    // @Disabled("Failing test: DiscountService allows invalid coupon codes without exception.")
     @Test
-    public void testCouponDiscount_CaseSensitiveDiscount10() {
+    public void testCouponDiscount_lowercaseDISCOUNT10() {
         try {
             discountService.applyDiscount(500.0, customerType, cartItems, "discount10");
             fail("Expected IllegalArgumentException for invalid coupon code");
@@ -81,10 +81,10 @@ public class CouponDiscountTest {
         }    
     }
 
-    // Failed Test: Coupons should be case-sensitive
-    // @Disabled("Failing test: DiscountService does not treat coupon codes as case-insensitive.")
+    // Failed Test: Invalid Coupons should raise an error
+    // @Disabled("Failing test: DiscountService allows invalid coupon codes without exception.")
     @Test
-    public void testCouponDiscount_CaseSensitiveSAVE50() {
+    public void testCouponDiscount_lowercaseSAVE50() {
         try {
             discountService.applyDiscount(500.0, customerType, cartItems, "save50");
             fail("Expected IllegalArgumentException for invalid coupon code");
