@@ -50,7 +50,7 @@ public class CartItemTest {
         CartItem noItem = new CartItem(product, 0);
         try {
             noItem.getTotalPrice();
-            fail("Expected IllegalArgumentException for zero quantity");
+            fail("Expected Exception for zero quantity");
         } catch (IllegalArgumentException e) {
             String expectedMessage = "Quantity must be at least 1";
             String actualMessage = e.getMessage();
