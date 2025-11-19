@@ -129,6 +129,7 @@ public class ShoppingCartTest {
 
         when(discountService.applyPromotionDiscount(600.0)).thenReturn(450.0);
 
+        // Capture the print output
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         PrintStream originalOut = System.out;
         System.setOut(new PrintStream(outputStream));
