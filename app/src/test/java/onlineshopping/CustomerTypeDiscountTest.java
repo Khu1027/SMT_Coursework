@@ -19,7 +19,6 @@ import java.util.ArrayList;
 public class CustomerTypeDiscountTest {
     private DiscountService discountService;
     private ArrayList<CartItem> cartItems;
-    private CustomerType customerType;
     private Product monitor;
     private CartItem monitorItem;
 
@@ -35,25 +34,19 @@ public class CustomerTypeDiscountTest {
 
     @Test
     public void testCustomerTypeDiscount_Regular() {
-        customerType = CustomerType.REGULAR;
-
-        assertEquals(500.0, discountService.applyDiscount(500.0, customerType, cartItems, null));
+        assertEquals(500.0, discountService.applyDiscount(500.0, CustomerType.REGULAR, cartItems, null));
     }
 
     // Failed Test: Premium customers receive 20% discount instead of 10%
     // @Disabled("Failing test: Premium customers receive 20% discount instead of 10%.")
-    @Test
+    @Test // Premium customer = 10% discount
     public void testCustomerTypeDiscount_Premium() {
-        customerType = CustomerType.PREMIUM; // 10% discount
-
-        assertEquals(450.0, discountService.applyDiscount(500.0, customerType, cartItems, null));
+        assertEquals(450.0, discountService.applyDiscount(500.0, CustomerType.PREMIUM, cartItems, null));
     }
 
-    @Test
+    @Test // VIP customer = 15% discount
     public void testCustomerTypeDiscount_VIP() {
-        customerType = CustomerType.VIP; // 15% discount
-
-        assertEquals(425.0, discountService.applyDiscount(500.0, customerType, cartItems, null));
+        assertEquals(425.0, discountService.applyDiscount(500.0, CustomerType.VIP, cartItems, null));
     }
     
 }

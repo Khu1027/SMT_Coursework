@@ -35,9 +35,6 @@ public class BundleDiscountTest {
         customerType = CustomerType.REGULAR;
     }
 
-    // ===== All Failed Tests Below: 10% Bundle discount is applied to the laptop instead of the mouse =====
-
-
     // @Disabled("Failing test: Discount applied to every laptop regardless of mouse presence.")
     @Test
     public void testBundleDiscount_OneLaptop() {
@@ -62,16 +59,13 @@ public class BundleDiscountTest {
     // @Disabled("Failing test: Bundle discount applied to wrong item.")
     @Test
     public void testBundleDiscount_OneMouseLaptopPair() {
-        // Arrange
         laptopItem = new CartItem(laptop, 1);
         mouseItem = new CartItem(mouse, 1);
 
-        // Act
         cartItems.add(laptopItem);
         cartItems.add(mouseItem);
         double discount = discountService.applyDiscount(550.0, customerType, cartItems, null);
 
-        // Assert
         assertEquals(545.0, discount); // 10% off mouse = $5.0 discount
     }
 

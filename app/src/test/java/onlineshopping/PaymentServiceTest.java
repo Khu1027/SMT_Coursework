@@ -26,7 +26,6 @@ public class PaymentServiceTest {
     public void testPaymentService_ValidPayment() {
         try {
             boolean result = paymentService.processPayment(validCardNumber, validAmount);
-
             assertTrue(result);
         } catch (Exception e) {
             fail("Payment processing threw an exception for valid input");
@@ -43,7 +42,6 @@ public class PaymentServiceTest {
         } catch (Exception e) {
             String expectedMessage = "Payment failed: Invalid card or amount.";
             String actualMessage = e.getMessage();
-
             assertTrue(actualMessage.contains(expectedMessage));
         }
     }
@@ -60,7 +58,6 @@ public class PaymentServiceTest {
         } catch (Exception e) {
             String expectedMessage = "Payment failed: Invalid card or amount.";
             String actualMessage = e.getMessage();
-
             assertTrue(actualMessage.contains(expectedMessage));
         }
     }
@@ -78,12 +75,11 @@ public class PaymentServiceTest {
         } catch (Exception e) {
             String expectedMessage = "Payment failed: Invalid card or amount.";
             String actualMessage = e.getMessage();
-
             assertTrue(actualMessage.contains(expectedMessage)); 
         }
     }
 
-    //This test fails because PaymentService only throws an exception if both the card and amount are invalid.
+    // This test fails because PaymentService only throws an exception if both the card and amount are invalid.
     // @Disabled("Failing test: PaymentService allows invalid amounts without exception.")
     @Test
     public void testPaymentService_InvalidAmountNegative() {
@@ -95,7 +91,6 @@ public class PaymentServiceTest {
         } catch (Exception e) {
             String expectedMessage = "Payment failed: Invalid card or amount.";
             String actualMessage = e.getMessage();
-            
             assertTrue(actualMessage.contains(expectedMessage)); 
         }
     }
@@ -111,7 +106,6 @@ public class PaymentServiceTest {
         } catch (Exception e) {
             String expectedMessage = "Payment failed: Invalid card or amount.";
             String actualMessage = e.getMessage();
-
             assertTrue(actualMessage.contains(expectedMessage));
         }
     }

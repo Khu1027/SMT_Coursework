@@ -51,7 +51,8 @@ public class PlaceOrderTest {
         shoppingCart.addItem(monitorItem);
         shoppingCart.addItem(mouseItem);
 
-        when(paymentService.processPayment(anyString(), anyDouble())).thenReturn(true);
+        when(paymentService.processPayment(anyString(), anyDouble()))
+            .thenReturn(true);
 
         boolean result = orderService.placeOrder(shoppingCart, "1234567891234567");
 
@@ -67,7 +68,8 @@ public class PlaceOrderTest {
         shoppingCart.addItem(monitorItem);
         shoppingCart.addItem(mouseItem);
 
-        when(paymentService.processPayment(anyString(), anyDouble())).thenThrow(new Exception("Payment failed"));
+        when(paymentService.processPayment(anyString(), anyDouble()))
+            .thenThrow(new Exception("Payment failed"));
 
         boolean result = orderService.placeOrder(shoppingCart, "123");
 
@@ -84,8 +86,10 @@ public class PlaceOrderTest {
         shoppingCart.addItem(mouseItem);
         shoppingCart.setPromotionActive(true); // 25% off on total
 
-        when(paymentService.processPayment(anyString(), anyDouble())).thenReturn(true);
-        when(discountService.applyPromotionDiscount(600.0)).thenReturn(450.0);
+        when(paymentService.processPayment(anyString(), anyDouble()))
+            .thenReturn(true);
+        when(discountService.applyPromotionDiscount(600.0))
+            .thenReturn(450.0);
         when(discountService.applyDiscount(600.0, CustomerType.REGULAR, shoppingCart.getItems(), null))
             .thenReturn(450.0);
 

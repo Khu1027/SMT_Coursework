@@ -20,7 +20,6 @@ import java.util.ArrayList;
 public class CouponDiscountTest {
     private DiscountService discountService;
     private ArrayList<CartItem> cartItems;
-    private CustomerType customerType;
     private Product monitor;
     private CartItem monitorItem;
 
@@ -31,24 +30,23 @@ public class CouponDiscountTest {
         monitorItem = new CartItem(monitor, 1);
 
         cartItems = new ArrayList<>();
-        customerType = CustomerType.REGULAR;
 
         cartItems.add(monitorItem);
     }
 
     @Test
     public void testCouponDiscount_NoCoupon() {
-        assertEquals(500.0, discountService.applyDiscount(500.0, customerType, cartItems, null));
+        assertEquals(500.0, discountService.applyDiscount(500.0, CustomerType.REGULAR, cartItems, null));
     }
 
     @Test
     public void testCouponDiscount_EmptyCoupon() {
-        assertEquals(500.0, discountService.applyDiscount(500.0, customerType, cartItems, ""));
+        assertEquals(500.0, discountService.applyDiscount(500.0, CustomerType.REGULAR, cartItems, ""));
     }
 
     @Test
     public void testCouponDiscount_InvalidCoupon() {
-        assertEquals(500.0, discountService.applyDiscount(500.0, customerType, cartItems, "INVALID"));
+        assertEquals(500.0, discountService.applyDiscount(500.0, CustomerType.REGULAR, cartItems, "INVALID"));
     }
 
     // Failed Test: Invalid Coupons should raise an error
@@ -56,7 +54,7 @@ public class CouponDiscountTest {
     @Test
     public void testCouponDiscount_InvalidError() {
         try {
-            discountService.applyDiscount(500.0, customerType, cartItems, "INVALID");
+            discountService.applyDiscount(500.0, CustomerType.REGULAR, cartItems, "INVALID");
             fail("Expected IllegalArgumentException for invalid coupon code");
         } catch (IllegalArgumentException e) {
             String expectedMessage = "Invalid coupon code";
@@ -71,7 +69,7 @@ public class CouponDiscountTest {
     @Test
     public void testCouponDiscount_lowercaseDISCOUNT10() {
         try {
-            discountService.applyDiscount(500.0, customerType, cartItems, "discount10");
+            discountService.applyDiscount(500.0, CustomerType.REGULAR, cartItems, "discount10");
             fail("Expected IllegalArgumentException for invalid coupon code");
         } catch (IllegalArgumentException e) {
             String expectedMessage = "Invalid coupon code";
@@ -86,7 +84,7 @@ public class CouponDiscountTest {
     @Test
     public void testCouponDiscount_lowercaseSAVE50() {
         try {
-            discountService.applyDiscount(500.0, customerType, cartItems, "save50");
+            discountService.applyDiscount(500.0, CustomerType.REGULAR, cartItems, "save50");
             fail("Expected IllegalArgumentException for invalid coupon code");
         } catch (IllegalArgumentException e) {
             String expectedMessage = "Invalid coupon code";
@@ -98,12 +96,12 @@ public class CouponDiscountTest {
 
     @Test
     public void testCouponDiscount_ValidDISCOUNT10() {
-        assertEquals(450.0, discountService.applyDiscount(500.0, customerType, cartItems, "DISCOUNT10")); // 10% off
+        assertEquals(450.0, discountService.applyDiscount(500.0, CustomerType.REGULAR, cartItems, "DISCOUNT10")); // 10% off
     }
 
     @Test
     public void testCouponDiscount_ValidSAVE50() {
-        assertEquals(450.0, discountService.applyDiscount(500.0, customerType, cartItems, "SAVE50")); // $50 off
+        assertEquals(450.0, discountService.applyDiscount(500.0, CustomerType.REGULAR, cartItems, "SAVE50")); // $50 off
     }
     
 }
